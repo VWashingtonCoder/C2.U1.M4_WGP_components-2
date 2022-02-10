@@ -1,6 +1,6 @@
-import axios from 'axios';
+import axios from "axios";
+import breeds from "./breeds";
 // 👉 TASK 1- Test out the following endpoints:
-
 //  https://dog.ceo/api/breeds/image/random
 
 //  * With Firefox and the Network Tab
@@ -55,10 +55,13 @@ function dogCardMaker({ imageURL, breed }) {
 //    * ON FAILURE: log the error to the console
 //    * IN ANY CASE: log "done" to the console
 
-axios.get(`https://dog.ceo/api/breed/dachshund/images/random/5`)
+// 👉 (OPTIONAL) TASK 6- Wrap the fetching operation inside a function `getDogs`
+// that takes a breed and a count (of dogs)
+
+const getDogs = (breed, count) => {
+  axios.get(`https://dog.ceo/api/breed/${breed}/images/random/${count}`)
   .then(resp => {
     resp.data.message.forEach(imageURL => {
-      const breed = "Husky";
       const dogCard = dogCardMaker({ imageURL, breed });
       entryPoint.appendChild(dogCard);
     })
@@ -67,13 +70,15 @@ axios.get(`https://dog.ceo/api/breed/dachshund/images/random/5`)
     console.error(err);
   })
   .finally(() => console.log("DONE"))
-
-// 👉 (OPTIONAL) TASK 6- Wrap the fetching operation inside a function `getDogs`
-// that takes a breed and a count (of dogs)
-
+}
 
 // 👉 (OPTIONAL) TASK 7- Put a button in index.html to 'get dogs' and add a click
 // event listener that executes `getDogs`
+document.querySelector("button").addEventListener("click", () => {
+  for (let i = 0; i < breeds.length; i++) {
+    getDogs(breeds[i], 3);
+  }
+})
 
 
 // 👉 (OPTIONAL) TASK 8- Import the breeds from `breeds.js`
