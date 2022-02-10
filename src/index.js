@@ -1,3 +1,4 @@
+import axios from 'axios';
 // 👉 TASK 1- Test out the following endpoints:
 
 //  https://dog.ceo/api/breeds/image/random
@@ -20,14 +21,14 @@ function dogCardMaker({ imageURL, breed }) {
       <h3>
     </div>
   */
- const dogCard = document.createElement("div"); // <div></div>
- const image = document.createElement("img"); // <img />
- const heading = document.createElement("h3"); // <h3></h3>
+  const dogCard = document.createElement("div"); // <div></div>
+  const image = document.createElement("img"); // <img />
+  const heading = document.createElement("h3"); // <h3></h3>
 
  // create the hierarchy
 
- dogCard.appendChild(image); // <div><img /></div>
- dogCard.appendChild(heading); // <div><img /><h3></h3></div>
+  dogCard.appendChild(image); // <div><img /></div>
+  dogCard.appendChild(heading); // <div><img /><h3></h3></div>
 
   // set class names, attributes and text
   heading.textContent = `Breed: ${breed}`;
@@ -37,12 +38,12 @@ function dogCardMaker({ imageURL, breed }) {
 
   // add some interactivity
   dogCard.addEventListener("click", () => {
-    dogCard.classList.toggle("selected" + param1);
+    dogCard.classList.toggle("selected");
   });
 
   // never forget to return!
+  return dogCard;
 }
-
 
 // 👉 TASK 4- Bring the Axios library into the project using one of two methods:
 //    * Traditional way: put another script tag inside index.html (`https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js`)
@@ -54,6 +55,18 @@ function dogCardMaker({ imageURL, breed }) {
 //    * ON FAILURE: log the error to the console
 //    * IN ANY CASE: log "done" to the console
 
+axios.get(`https://dog.ceo/api/breed/dachsund/images/random/5`)
+  .then(resp => {
+    resp.data.message.forEach(imageURL => {
+      const breed = "Husky";
+      const dogCard = dogCardMaker({ imageURL, breed });
+      entryPoint.appendChild(dogCard);
+    })
+  })
+  .catch(err => {
+    console.error(err);
+  })
+  .finally(() => console.log("DONE"))
 
 // 👉 (OPTIONAL) TASK 6- Wrap the fetching operation inside a function `getDogs`
 // that takes a breed and a count (of dogs)
