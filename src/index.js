@@ -55,7 +55,7 @@ function dogCardMaker({ imageURL, breed }) {
 //    * ON FAILURE: log the error to the console
 //    * IN ANY CASE: log "done" to the console
 
-axios.get(`https://dog.ceo/api/breed/dachsund/images/random/5`)
+axios.get(`https://dog.ceo/api/breed/dachshund/images/random/5`)
   .then(resp => {
     resp.data.message.forEach(imageURL => {
       const breed = "Husky";
