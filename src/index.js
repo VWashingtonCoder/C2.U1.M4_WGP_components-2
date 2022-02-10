@@ -8,8 +8,7 @@
 
 // 👉 TASK 2- Select the "entry point", the element
 // inside of which we'll inject our dog cards 
-const entryPoint = null
-
+const entryPoint = document.querySelector(".entry");
 
 // 👉 TASK 3- `dogCardMaker` takes an object and returns a Dog Card.
 // Use this function to build a Card, and append it to the entry point.
@@ -21,11 +20,25 @@ function dogCardMaker({ imageURL, breed }) {
       <h3>
     </div>
   */
-  // set class names, attributes and text
+ const dogCard = document.createElement("div"); // <div></div>
+ const image = document.createElement("img"); // <img />
+ const heading = document.createElement("h3"); // <h3></h3>
 
-  // create the hierarchy
+ // create the hierarchy
+
+ dogCard.appendChild(image); // <div><img /></div>
+ dogCard.appendChild(heading); // <div><img /><h3></h3></div>
+
+  // set class names, attributes and text
+  heading.textContent = `Breed: ${breed}`;
+  image.src = imageURL;
+  dogCard.classList.add("dog-card");
+  image.classList.add("dog-image");
 
   // add some interactivity
+  dogCard.addEventListener("click", () => {
+    dogCard.classList.toggle("selected" + param1);
+  });
 
   // never forget to return!
 }
